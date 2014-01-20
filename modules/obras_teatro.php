@@ -1,0 +1,591 @@
+<?
+	//require($CFG->common_libdir . "/entidades_v_1.3/object.php");
+	require($CFG->objectPath . "/object.php");
+
+class obras_teatro extends entity
+{
+	function insert()
+	{
+		if($_FILES["plano_luces"]["size"] != "")
+		{
+			if(!in_array($_FILES["plano_luces"]["type"],$this->CFG->tiposAdmitidosDocumentos))
+			{
+				//$this->getAttributeByName("plano_luces")->set("value","");
+				$pl_lu = $this->getAttributeByName("plano_luces");
+				$pl_lu = $pl_lu->set("value","");
+				//$this->getAttributeByName("mmdd_plano_luces_filename")->set("value",NULL);
+				$plfn = $this->getAttributeByName("mmdd_plano_luces_filename");
+				$plfn = $plfn->set("value",NULL);
+				//$this->getAttributeByName("mmdd_plano_luces_filetype")->set("value",NULL);
+				$plft = $this->getAttributeByName("mmdd_plano_luces_filetype");
+				$plft = $plft ->set("value",NULL);
+				//$this->getAttributeByName("mmdd_plano_luces_filesize")->set("value",NULL);
+				$plls = $this->getAttributeByName("mmdd_plano_luces_filesize");
+				$plls = $plls ->set("value",NULL);
+				unset($_FILES["plano_luces"]);
+				echo "<script>window.alert('El Plano de Luces no está en un formato permitido. Se aceptan formatos .pdf y .doc. No se ha insertado el Plano de Luces')</script>";
+			}
+		}
+		
+		if($_FILES["documento"]["size"] != "")
+		{
+			if(!in_array($_FILES["documento"]["type"],$this->CFG->tiposAdmitidosDocumentos))
+			{
+				//$this->getAttributeByName("documento")->set("value","");
+				$doc = $this->getAttributeByName("documento");
+				$doc = $doc->set("value","");
+				//$this->getAttributeByName("mmdd_documento_filename")->set("value",NULL);
+				$docfn = $this->getAttributeByName("mmdd_documento_filename");
+				$docfn =  $docfn->set("value",NULL);
+				//$this->getAttributeByName("mmdd_documento_filetype")->set("value",NULL);
+				$docft = $this->getAttributeByName("mmdd_documento_filetype");
+				$docft = $docft->set("value",NULL);
+				//$this->getAttributeByName("mmdd_documento_filesize")->set("value",NULL);
+				$docfs = $this->getAttributeByName("mmdd_documento_filesize");
+				$docfs = $docfs->set("value",NULL);
+				unset($_FILES["documento"]);
+				echo "<script>window.alert('El documento no está en un formato permitido. Se aceptan formatos .pdf y .doc. No se ha insertado el documento')</script>";
+			}
+		}
+		
+		$this->id = parent::insert();
+		return($this->id);
+	}
+
+
+	function update()
+	{
+		if($_FILES["plano_luces"]["size"] != "")
+		{
+			if(!in_array($_FILES["plano_luces"]["type"],$this->CFG->tiposAdmitidosDocumentos))
+			{
+				//$this->getAttributeByName("plano_luces")->set("value","");
+				//$this->getAttributeByName("mmdd_plano_luces_filename")->set("value",NULL);
+				//$this->getAttributeByName("mmdd_plano_luces_filetype")->set("value",NULL);
+				//$this->getAttributeByName("mmdd_plano_luces_filesize")->set("value",NULL);
+				$pl_lu = $this->getAttributeByName("plano_luces");
+				$pl_lu = $pl_lu->set("value","");
+				$plfn = $this->getAttributeByName("mmdd_plano_luces_filename");
+				$plfn = $plfn->set("value",NULL);
+				$plft = $this->getAttributeByName("mmdd_plano_luces_filetype");
+				$plft = $plft ->set("value",NULL);
+				$plls = $this->getAttributeByName("mmdd_plano_luces_filesize");
+				$plls = $plls ->set("value",NULL);
+				unset($_FILES["plano_luces"]);
+				echo "<script>window.alert('El Plano de Luces no está en un formato permitido. Se aceptan formatos .pdf y .doc. No se ha actualizado el Plano de Luces')</script>";
+			}
+		}
+		
+		if($_FILES["documento"]["size"] != "")
+		{
+			if(!in_array($_FILES["documento"]["type"],$this->CFG->tiposAdmitidosDocumentos))
+			{
+				//$this->getAttributeByName("documento")->set("value","");
+				//$this->getAttributeByName("mmdd_documento_filename")->set("value",NULL);
+				//$this->getAttributeByName("mmdd_documento_filetype")->set("value",NULL);
+				//$this->getAttributeByName("mmdd_documento_filesize")->set("value",NULL);
+				$doc = $this->getAttributeByName("documento");
+				$doc = $doc->set("value","");
+				$docfn = $this->getAttributeByName("mmdd_documento_filename");
+				$docfn =  $docfn->set("value",NULL);
+				$docft = $this->getAttributeByName("mmdd_documento_filetype");
+				$docft = $docft->set("value",NULL);
+				$docfs = $this->getAttributeByName("mmdd_documento_filesize");
+				$docfs = $docfs->set("value",NULL);
+				unset($_FILES["documento"]);
+				echo "<script>window.alert('El documento no está en un formato permitido. Se aceptan formatos .pdf y .doc. No se ha actualizado el documento')</script>";
+			}
+		}
+		
+		parent::update();
+	}
+}
+	
+	$entidad =& new obras_teatro();
+	$entidad->set("db",$db);
+
+	$entidad->set("name","obras_teatro");
+	$entidad->set("labelModule","Obras");
+	$entidad->set("table","obras_teatro");
+
+	include("style.php");
+	$entidad->set("formColumns",1);
+
+// ---------- Vinculos a muchos  ----------------
+
+	$link=new link($entidad);
+	$link->set("name","artistas_teatro");
+	$link->set("url",$ME . "?module=artistas_teatro");
+	$link->set("icon","boy.gif");
+	$link->set("description","Actores");
+	$link->set("field","id_obras_teatro");
+	$link->set("type","iframe");
+	$link->set("popup","TRUE");
+	$link->set("relatedTable","artistas_teatro");
+	$entidad->addLink($link);
+
+	$link=new link($entidad);
+	$link->set("name","directores_teatro");
+	$link->set("url",$ME . "?module=directores_teatro");
+	$link->set("icon","kgpg_identity.png");
+	$link->set("description","Director");
+	$link->set("field","id_obras_teatro");
+	$link->set("type","iframe");
+	$link->set("popup","TRUE");
+	$link->set("relatedTable","directores_teatro");
+	$entidad->addLink($link);
+
+	$link=new link($entidad);
+	$link->set("name","archivos_obras_teatro");
+	$link->set("url",$ME . "?module=archivos_obras_teatro");
+	$link->set("icon","foto.jpeg");
+	$link->set("description","Archivos");
+	$link->set("field","id_obras_teatro");
+	$link->set("type","iframe");
+	$link->set("popup","TRUE");
+	$link->set("relatedTable","archivos_obras_teatro");
+	$entidad->addLink($link);
+
+	
+	
+// ---------- ATRIBUTOS          ----------------
+	
+	
+	$atributo=new attribute($entidad);
+	$atributo->set("field","id_grupos_teatro");
+	$atributo->set("label","Grupo");
+	if($_SESSION[$CFG->sesion_admin]["user"]["id_nivel"] == 9)
+	{
+		$atributo->set("inputType","arraySelect");
+		$qid=$db->sql_query("SELECT g.id,g.nombre
+				FROM grupos_teatro g
+				LEFT JOIN usuarios_grupos_teatro ug ON ug.id_grupo_teatro = g.id
+				WHERE ug.id_usuario=".$_SESSION[$CFG->sesion_admin]["user"]["id"]);
+		$grupos=array();
+		while($queryG=$db->sql_fetchrow($qid)){
+			$grupos[$queryG["id"]]=$queryG["nombre"];
+		}
+		$atributo->set("arrayValues",$grupos);
+	}
+	else
+	{
+		$atributo->set("inputType","select");
+		$atributo->set("foreignTable","grupos_teatro");
+		$atributo->set("foreignLabelFields","nombre");
+	}
+	$atributo->set("sqlType","smallint(6)");
+	$atributo->set("mandatory",TRUE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",TRUE);
+	$atributo->set("shortList",TRUE);
+	$entidad->addAttribute($atributo);
+
+	
+	$atributo=new attribute($entidad);
+	$atributo->set("field","id_generos_teatro");
+	$atributo->set("label","Género");
+	$atributo->set("inputType","select");
+	$atributo->set("foreignTable","generos_teatro");
+	$atributo->set("foreignLabelFields","genero");
+	$atributo->set("sqlType","smallint(6)");
+	$atributo->set("mandatory",TRUE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",TRUE);
+	$atributo->set("shortList",TRUE);
+	$entidad->addAttribute($atributo);
+
+
+	$atributo=new attribute($entidad);
+	$atributo->set("field","obra");
+	$atributo->set("label","Obra");
+	$atributo->set("sqlType","varchar(255)");
+	$atributo->set("mandatory",TRUE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",TRUE);
+	$atributo->set("shortList",TRUE);
+	$entidad->addAttribute($atributo);
+
+
+	$atributo=new attribute($entidad);
+	$atributo->set("field","anio");
+	$atributo->set("label","Año");
+	$atributo->set("sqlType","varchar(16)");
+	$atributo->set("mandatory",TRUE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",TRUE);
+	$atributo->set("shortList",TRUE);
+	$entidad->addAttribute($atributo);
+
+
+	$atributo=new attribute($entidad);
+	$atributo->set("field","resena");
+	$atributo->set("label","Reseña");
+	$atributo->set("sqlType","text");
+	$atributo->set("inputType","textarea");
+	$atributo->set("inputSize",50);
+	$atributo->set("inputRows",10);
+	$atributo->set("mandatory",FALSE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",FALSE);
+	$atributo->set("shortList",FALSE);
+	$entidad->addAttribute($atributo);
+
+	$atributo=new attribute($entidad);
+	$atributo->set("field","en_resena");
+	$atributo->set("label","Reseña (Inglés)");
+	$atributo->set("sqlType","text");
+	$atributo->set("inputType","textarea");
+	$atributo->set("inputSize",50);
+	$atributo->set("inputRows",10);
+	$atributo->set("mandatory",FALSE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",FALSE);
+	$atributo->set("shortList",FALSE);
+	$entidad->addAttribute($atributo);
+
+	$atributo=new attribute($entidad);
+	$atributo->set("field","autor");
+	$atributo->set("label","Autor");
+	$atributo->set("sqlType","varchar(255)");
+	$atributo->set("mandatory",FALSE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",TRUE);
+	$atributo->set("shortList",FALSE);
+	$entidad->addAttribute($atributo);
+
+	$atributo=new attribute($entidad);
+	$atributo->set("field","musica");
+	$atributo->set("label","Música");
+	$atributo->set("sqlType","text");
+	$atributo->set("mandatory",FALSE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",TRUE);
+	$atributo->set("shortList",FALSE);
+	$entidad->addAttribute($atributo);
+
+	$atributo=new attribute($entidad);
+	$atributo->set("field","duracion");
+	$atributo->set("label","Duración total");
+	$atributo->set("sqlType","varchar(125)");
+	$atributo->set("mandatory",FALSE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",TRUE);
+	$atributo->set("shortList",FALSE);
+	$entidad->addAttribute($atributo);
+
+	$atributo=new attribute($entidad);
+	$atributo->set("field","num_actos");
+	$atributo->set("label","No. de actos");
+	$atributo->set("sqlType","varchar(125)");
+	$atributo->set("mandatory",FALSE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",TRUE);
+	$atributo->set("shortList",FALSE);
+	$entidad->addAttribute($atributo);
+
+	$atributo=new attribute($entidad);
+	$atributo->set("field","num_intermedios");
+	$atributo->set("label","No. de intermedios");
+	$atributo->set("sqlType","varchar(125)");
+	$atributo->set("mandatory",FALSE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",TRUE);
+	$atributo->set("shortList",FALSE);
+	$entidad->addAttribute($atributo);
+
+	$atributo=new attribute($entidad);
+	$atributo->set("inputType","arraySelect");
+	$atributo->set("field","tipo_publico");
+	$atributo->set("label","Tipo de público");
+	$atributo->set("sqlType","smallint(6)");
+	$atributo->set("arrayValues",array("1"=>"Adultos","2"=>"Infantil","3"=>"Familiar"));
+	$atributo->set("mandatory",FALSE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",TRUE);
+	$atributo->set("shortList",FALSE);
+	$entidad->addAttribute($atributo);
+
+	$atributo=new attribute($entidad);
+	$atributo->set("field","num_viajantes");
+	$atributo->set("label","¿Cuántas personas viajan con la producción?");
+	$atributo->set("sqlType","character varying(255)");
+	$atributo->set("inputSize",10);
+	$atributo->set("mandatory",FALSE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",FALSE);
+	$atributo->set("shortList",FALSE);
+	$entidad->addAttribute($atributo);
+
+
+	$atributo=new attribute($entidad);
+	$atributo->set("field","horas_montaje");
+	$atributo->set("label","No. de horas de montaje");
+	$atributo->set("sqlType","varchar(125)");
+	$atributo->set("mandatory",FALSE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",TRUE);
+	$atributo->set("shortList",FALSE);
+	$entidad->addAttribute($atributo);
+
+	$atributo=new attribute($entidad);
+	$atributo->set("field","horas_desmontaje");
+	$atributo->set("label","No. de horas de desmontaje");
+	$atributo->set("sqlType","varchar(125)");
+	$atributo->set("mandatory",FALSE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",TRUE);
+	$atributo->set("shortList",FALSE);
+	$entidad->addAttribute($atributo);
+
+	$atributo=new attribute($entidad);
+	$atributo->set("field","ensayos");
+	$atributo->set("label","No. de ensayos necesarios");
+	$atributo->set("sqlType","varchar(125)");
+	$atributo->set("mandatory",FALSE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",TRUE);
+	$atributo->set("shortList",FALSE);
+	$entidad->addAttribute($atributo);
+
+	$atributo=new attribute($entidad);
+	$atributo->set("field","responsable_carga");
+	$atributo->set("label","Responsable de la carga");
+	$atributo->set("sqlType","text");
+	$atributo->set("mandatory",FALSE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",TRUE);
+	$atributo->set("shortList",FALSE);
+	$entidad->addAttribute($atributo);
+
+	$atributo=new attribute($entidad);
+	$atributo->set("field","en_responsable_carga");
+	$atributo->set("label","Responsable de la carga (Inglés)");
+	$atributo->set("sqlType","text");
+	$atributo->set("mandatory",FALSE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",TRUE);
+	$atributo->set("shortList",FALSE);
+	$entidad->addAttribute($atributo);
+
+	$atributo=new attribute($entidad);
+	$atributo->set("field","piezas");
+	$atributo->set("label","No. de piezas");
+	$atributo->set("sqlType","varchar(125)");
+	$atributo->set("mandatory",FALSE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",TRUE);
+	$atributo->set("shortList",FALSE);
+	$entidad->addAttribute($atributo);
+
+	$atributo=new attribute($entidad);
+	$atributo->set("field","volumen");
+	$atributo->set("label","Volumen total (en m3)");
+	$atributo->set("sqlType","varchar(125)");
+	$atributo->set("mandatory",FALSE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",TRUE);
+	$atributo->set("shortList",FALSE);
+	$entidad->addAttribute($atributo);
+
+	$atributo=new attribute($entidad);
+	$atributo->set("field","peso");
+	$atributo->set("label","Peso total (en kilos)");
+	$atributo->set("sqlType","varchar(125)");
+	$atributo->set("mandatory",FALSE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",TRUE);
+	$atributo->set("shortList",FALSE);
+	$entidad->addAttribute($atributo);
+
+	$atributo=new attribute($entidad);
+	$atributo->set("field","direccion_recogida");
+	$atributo->set("label","Dirección de recogida");
+	$atributo->set("sqlType","text");
+	$atributo->set("mandatory",FALSE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",TRUE);
+	$atributo->set("shortList",FALSE);
+	$entidad->addAttribute($atributo);
+
+	$atributo=new attribute($entidad);
+	$atributo->set("field","direccion_regreso");
+	$atributo->set("label","Dirección de regreso");
+	$atributo->set("sqlType","text");
+	$atributo->set("mandatory",FALSE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",TRUE);
+	$atributo->set("shortList",FALSE);
+	$entidad->addAttribute($atributo);
+
+	$atributo=new attribute($entidad);
+	$atributo->set("field","espacio");
+	$atributo->set("label","Espacio escénico requerido");
+	$atributo->set("sqlType","varchar(255)");
+	$atributo->set("mandatory",FALSE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",TRUE);
+	$atributo->set("shortList",FALSE);
+	$entidad->addAttribute($atributo);
+
+	$atributo=new attribute($entidad);
+	$atributo->set("field","en_espacio");
+	$atributo->set("label","Espacio escénico requerido (Inglés)");
+	$atributo->set("sqlType","varchar(255)");
+	$atributo->set("mandatory",FALSE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",TRUE);
+	$atributo->set("shortList",FALSE);
+	$entidad->addAttribute($atributo);
+
+	$atributo=new attribute($entidad);
+	$atributo->set("field","iluminacion");
+	$atributo->set("label","Iluminación");
+	$atributo->set("sqlType","varchar(255)");
+	$atributo->set("mandatory",FALSE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",TRUE);
+	$atributo->set("shortList",FALSE);
+	$entidad->addAttribute($atributo);
+
+	$atributo=new attribute($entidad);
+	$atributo->set("field","en_iluminacion");
+	$atributo->set("label","Iluminación (Inglés)");
+	$atributo->set("sqlType","varchar(255)");
+	$atributo->set("mandatory",FALSE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",TRUE);
+	$atributo->set("shortList",FALSE);
+	$entidad->addAttribute($atributo);
+
+	$atributo=new attribute($entidad);
+	$atributo->set("field","plano_luces");
+	$atributo->set("label","Plano Luces<br>(Subir PDF)");
+	$atributo->set("sqlType","longtext");
+	$atributo->set("inputType","file");
+	$atributo->set("mandatory",FALSE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",FALSE);
+	$atributo->set("browseable",TRUE);
+	$atributo->set("shortList",FALSE);
+	$entidad->addAttribute($atributo);
+
+	$atributo=new attribute($entidad);
+	$atributo->set("field","sonido");
+	$atributo->set("label","Sonido");
+	$atributo->set("sqlType","varchar(255)");
+	$atributo->set("mandatory",FALSE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",TRUE);
+	$atributo->set("shortList",FALSE);
+	$entidad->addAttribute($atributo);
+
+	$atributo=new attribute($entidad);
+	$atributo->set("field","en_sonido");
+	$atributo->set("label","Sonido (Inglés)");
+	$atributo->set("sqlType","varchar(255)");
+	$atributo->set("mandatory",FALSE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",TRUE);
+	$atributo->set("shortList",FALSE);
+	$entidad->addAttribute($atributo);
+
+	$atributo=new attribute($entidad);
+	$atributo->set("field","equipos_adicionales");
+	$atributo->set("label","Equipos adicionales<br>y/o efectos especiales");
+	$atributo->set("sqlType","text");
+	$atributo->set("inputType","textarea");
+	$atributo->set("inputSize",50);
+	$atributo->set("inputRows",5);
+	$atributo->set("mandatory",FALSE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",TRUE);
+	$atributo->set("shortList",FALSE);
+	$entidad->addAttribute($atributo);
+
+	$atributo=new attribute($entidad);
+	$atributo->set("field","en_equipos_adicionales");
+	$atributo->set("label","Equipos adicionales<br>y/o efectos especiales (Inglés)");
+	$atributo->set("sqlType","text");
+	$atributo->set("inputType","textarea");
+	$atributo->set("inputSize",50);
+	$atributo->set("inputRows",5);
+	$atributo->set("mandatory",FALSE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",TRUE);
+	$atributo->set("shortList",FALSE);
+	$entidad->addAttribute($atributo);
+
+	$atributo=new attribute($entidad);
+	$atributo->set("field","comentarios");
+	$atributo->set("label","Comentarios adicionales");
+	$atributo->set("sqlType","text");
+	$atributo->set("inputType","textarea");
+	$atributo->set("inputSize",50);
+	$atributo->set("inputRows",5);
+	$atributo->set("mandatory",FALSE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",TRUE);
+	$atributo->set("shortList",FALSE);
+	$entidad->addAttribute($atributo);
+
+	$atributo=new attribute($entidad);
+	$atributo->set("field","en_comentarios");
+	$atributo->set("label","Comentarios adicionales (Inglés)");
+	$atributo->set("sqlType","text");
+	$atributo->set("inputType","textarea");
+	$atributo->set("inputSize",50);
+	$atributo->set("inputRows",5);
+	$atributo->set("mandatory",FALSE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",TRUE);
+	$atributo->set("browseable",TRUE);
+	$atributo->set("shortList",FALSE);
+	$entidad->addAttribute($atributo);
+
+	$atributo=new attribute($entidad);
+	$atributo->set("field","documento");
+	$atributo->set("label","Documento<br>(Subir PDF)");
+	$atributo->set("sqlType","longtext");
+	$atributo->set("inputType","file");
+	$atributo->set("mandatory",FALSE);
+	$atributo->set("editable",TRUE);
+	$atributo->set("searchable",FALSE);
+	$atributo->set("browseable",TRUE);
+	$atributo->set("shortList",FALSE);
+	$entidad->addAttribute($atributo);
+
+
+	$entidad->checkSqlStructure(FALSE);
+
+?>
