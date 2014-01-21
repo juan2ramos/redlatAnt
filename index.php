@@ -1,6 +1,7 @@
 <?php
 	include("application.php");
-
+        
+                
 	if($_SESSION[$CFG->sesion_admin]["user"]["id_nivel"] == 4)
 		$module = "grupos_danza";
 	elseif($_SESSION[$CFG->sesion_admin]["user"]["id_nivel"] == 5)
@@ -15,7 +16,7 @@
 		include($CFG->modulesdir . "/" . $module . ".phtml");
 	else{
 		include($CFG->templatedir . "/header.php");
-		die("[" . $module . "]:<br>M�dulo no implementado.");
+		die("[" . $module . "]:<br>M?dulo no implementado.");
 	}
 
 	if($module == "citas")
@@ -116,7 +117,7 @@ function download($frm){
 	GLOBAL $CFG, $ME, $entidad;
 
 	$entidad->loadValues($frm);
-	$entidad->maxRows=NULL;//Para que no les ponga l�mite a los listados.
+	$entidad->maxRows=NULL;//Para que no les ponga l?mite a los listados.
 	$entidad->find();
 	$filename=$entidad->name;
 	$ext="csv";
@@ -130,8 +131,8 @@ GLOBAL $CFG, $ME, $entidad, $db;
   $urlMonitoreo=$CFG->admin_dir . "/monitoreo.php";
   $qid=$db->sql_query("SELECT * FROM boletin_envio_actual");
   if($result=$db->sql_fetchrow($qid)){
-    echo "<br>\n<br>\nNo se puede volver a enviar en este momento.<br>\nHay un env�o en ejecuci�n.<br>\n";
-    echo "Si desea monitorear el env�o, por favor haga clic <a href=\"" . $urlMonitoreo ."\" TARGET=\"_parent\">aqu�</a>.<br>\n";
+    echo "<br>\n<br>\nNo se puede volver a enviar en este momento.<br>\nHay un env?o en ejecuci?n.<br>\n";
+    echo "Si desea monitorear el env?o, por favor haga clic <a href=\"" . $urlMonitoreo ."\" TARGET=\"_parent\">aqu?</a>.<br>\n";
     return;
   }
   preguntar($frm);
@@ -144,7 +145,7 @@ GLOBAL $CFG, $ME, $entidad, $db;
   $pid= exec("/usr/bin/php $commandLine &>/tmp/" . $CFG->sesion . " & echo \$!",$results,$status);
   $query="insert into boletin_envio_actual (id_envio,pid) VALUES ('$id_envio','$pid')";
   $db->sql_query($query);
-  echo "Listo.<br>\nSi desea monitorear el env�o, por favor haga clic <a href=\"" . $urlMonitoreo ."\" TARGET=\"_parent\">aqu�</a>.<br>\n";
+  echo "Listo.<br>\nSi desea monitorear el env?o, por favor haga clic <a href=\"" . $urlMonitoreo ."\" TARGET=\"_parent\">aqu?</a>.<br>\n";
 
 }
 
@@ -424,7 +425,7 @@ function listado_obras_artista($frm)
 
 	$consulta = "
 		SELECT * FROM (
-				SELECT 'Danza' as tipo,gd.nombre as grupo,od.obra, (CASE WHEN ad.actividad=1 THEN 'Director' WHEN ad.actividad=2 THEN 'Bailar�n' WHEN ad.actividad=3 THEN 'T�cnico' END) as actividad
+				SELECT 'Danza' as tipo,gd.nombre as grupo,od.obra, (CASE WHEN ad.actividad=1 THEN 'Director' WHEN ad.actividad=2 THEN 'Bailar?n' WHEN ad.actividad=3 THEN 'T?cnico' END) as actividad
 				FROM artistas_danza ad
 				LEFT JOIN obras_danza od ON od.id = ad.id_obras_danza
 				LEFT JOIN grupos_danza gd ON gd.id = od.id_grupos_danza
@@ -436,19 +437,19 @@ function listado_obras_artista($frm)
 				LEFT JOIN grupos_danza gd ON gd.id = od.id_grupos_danza
 				WHERE dd.id_artista = ".$frm["id_artista"]."
 				UNION
-				SELECT 'M�sica' as tipo,gm.nombre as grupo,om.produccion as obra, (CASE WHEN am.actividad=1 THEN 'M�sico' WHEN am.actividad=2 THEN 'Ingeniero de sonido' WHEN am.actividad=3 THEN 'Roadie' END) as actividad
+				SELECT 'M?sica' as tipo,gm.nombre as grupo,om.produccion as obra, (CASE WHEN am.actividad=1 THEN 'M?sico' WHEN am.actividad=2 THEN 'Ingeniero de sonido' WHEN am.actividad=3 THEN 'Roadie' END) as actividad
 				FROM artistas_musicos am
 				LEFT JOIN obras_musica om ON om.id = am.id_obras_musica
 				LEFT JOIN grupos_musica gm ON gm.id = om.id_grupos_musica
 				WHERE am.id_artista = ".$frm["id_artista"]."
 				UNION
-				SELECT 'M�sica' as tipo,gm.nombre as grupo,om.produccion as obra, 'Productor' as actividad
+				SELECT 'M?sica' as tipo,gm.nombre as grupo,om.produccion as obra, 'Productor' as actividad
 				FROM productores_musica pm
 				LEFT JOIN obras_musica om ON om.id = pm.id_obras_musica
 				LEFT JOIN grupos_musica gm ON gm.id = om.id_grupos_musica
 				WHERE pm.id_artista = ".$frm["id_artista"]."
 				UNION
-				SELECT 'Teatro' as tipo,gt.nombre as grupo,ot.obra, (CASE WHEN at.actividad=1 THEN 'Director' WHEN at.actividad=2 THEN 'Actor/Actriz' WHEN at.actividad=3 THEN 'T�cnico' WHEN at.actividad=4 THEN 'Productor' END) as actividad
+				SELECT 'Teatro' as tipo,gt.nombre as grupo,ot.obra, (CASE WHEN at.actividad=1 THEN 'Director' WHEN at.actividad=2 THEN 'Actor/Actriz' WHEN at.actividad=3 THEN 'T?cnico' WHEN at.actividad=4 THEN 'Productor' END) as actividad
 				FROM artistas_teatro at
 				LEFT JOIN obras_teatro ot ON ot.id = at.id_obras_teatro
 				LEFT JOIN grupos_teatro gt ON gt.id = ot.id_grupos_teatro
@@ -474,7 +475,7 @@ function listado_obras_artista($frm)
 
 	if(count($obras) == 0)
 	{
-		echo "<tr><td align=\"center\"><br><b>La persona no est� relacionada con ninguna obra y/o producci�n.</b></td></tr>";
+		echo "<tr><td align=\"center\"><br><b>La persona no est? relacionada con ninguna obra y/o producci?n.</b></td></tr>";
 	}
 
 
@@ -487,7 +488,7 @@ function listado_obras_artista($frm)
 					<table width=\"100%\" border=\"0\" cellspacing=\"1\" cellpadding=\"2\" bgcolor=\"#999999\" class=\"textobco10\">
 						<tr bgcolor='#bfbfac' class='title'>
 							<td align=\"center\"><b>Artista</b></td>
-							<td align=\"center\"><b>Obra / Producci�n</b></td>
+							<td align=\"center\"><b>Obra / Producci?n</b></td>
 							<td align=\"center\"><b>Actividad</b></td>
 						</tr>";
 
@@ -523,8 +524,8 @@ function usuarios_artistas($frm)
 	$qid = $db->sql_query("SELECT * FROM usuarios WHERE id=".$frm["id_usuario"]);
 	$usuario = $db->sql_fetchrow($qid);
 
-	$nivelesNoAceptados = array("1"=>"Administrador","2"=>"Admin G�neros","3"=>"Admin Artistas");
-	$nivelesAceptados = array("4"=>"B�sico Grupo Danza","5"=>"B�sico Grupo M�sica","6"=>"B�sico Grupo Teatro","7"=>"Total Grupo Danza","8"=>"Total Grupo M�sica","9"=>"Total Grupo Teatro");
+	$nivelesNoAceptados = array("1"=>"Administrador","2"=>"Admin G?neros","3"=>"Admin Artistas");
+	$nivelesAceptados = array("4"=>"B?sico Grupo Danza","5"=>"B?sico Grupo M?sica","6"=>"B?sico Grupo Teatro","7"=>"Total Grupo Danza","8"=>"Total Grupo M?sica","9"=>"Total Grupo Teatro");
 	
 	echo "<table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"4\" bgcolor=\"#ffffff\">";
 	echo "<tr><td align=\"center\"><br><b>".$usuario["nombre"]." ".$usuario["apellido"]."</b></td></tr>";
@@ -537,7 +538,7 @@ function usuarios_artistas($frm)
 
 	if(array_key_exists($usuario["id_nivel"],$nivelesNoAceptados))
 	{
-		echo "<tr><td><br>El Nivel de Acceso del Usuario (".$nivelesNoAceptados[$usuario["id_nivel"]].") no permite la relaci�n con Artistas.<br><br>Para relacionarlo con Artistas debe estar en alguno de los siguientes niveles: ".implode(", ",$nivelesAceptados).".</td></tr>";
+		echo "<tr><td><br>El Nivel de Acceso del Usuario (".$nivelesNoAceptados[$usuario["id_nivel"]].") no permite la relaci?n con Artistas.<br><br>Para relacionarlo con Artistas debe estar en alguno de los siguientes niveles: ".implode(", ",$nivelesAceptados).".</td></tr>";
 		echo "<tr>
 			<td height=40 valign=\"bottom\" align=\"center\">
 				<input type=\"button\" style=\"font-size:8pt\" value=\"Cerrar\" onClick=\"window.opener.focus();window.close();\">
@@ -569,7 +570,7 @@ function usuarios_artistas($frm)
 					<table width=\"100%\" border=\"0\" cellspacing=\"1\" cellpadding=\"2\" bgcolor=\"#999999\" class=\"textobco10\">
 						<tr bgcolor='#bfbfac' class='title'>
 							<td align=\"center\"><b>Artista</b></td>
-							<td align=\"center\"><b>Opci�n</b></td>
+							<td align=\"center\"><b>Opci?n</b></td>
 						</tr>";
 	$qidR = $db->sql_query("SELECT g.id,g.nombre
 			FROM usuarios_".$tabla." u 
@@ -583,7 +584,7 @@ function usuarios_artistas($frm)
 	while($query = $db->sql_fetchrow($qidR))
 	{
 		echo "<tr bgcolor='#ffffff'><td>".$query["nombre"]."</td>
-			<td widht='20%' align='center'><a href=\"".$CFG->admin_dir."/index.php?mode=borrar_rel_usuarios_artistas&id_usuario=".$usuario["id"]."&campo=".$campo."&tabla=".$tabla."&id_grupo=".$query["id"]."\"><img alt=\"Borrar Relaci�n\" border='0' src='".$CFG->icondir."/borrador.gif'></a></td>
+			<td widht='20%' align='center'><a href=\"".$CFG->admin_dir."/index.php?mode=borrar_rel_usuarios_artistas&id_usuario=".$usuario["id"]."&campo=".$campo."&tabla=".$tabla."&id_grupo=".$query["id"]."\"><img alt=\"Borrar Relaci?n\" border='0' src='".$CFG->icondir."/borrador.gif'></a></td>
 			</tr>";
 		$grupos[] = $query["id"];
 	}
@@ -601,7 +602,7 @@ function usuarios_artistas($frm)
 		}
 		$selectArtistas.= "</select>";
 
-		//agregar relaci�n
+		//agregar relaci?n
 		echo "
 					</table>
 				</td>
@@ -616,7 +617,7 @@ function usuarios_artistas($frm)
 			<input type=\"hidden\" name=\"mode\" value=\"agregar_rel_usuarios_artistas\">
 			<input type=\"hidden\" name=\"tabla\" value=\"".$tabla."\">
 			<input type=\"hidden\" name=\"id_usuario\" value=\"".$usuario["id"]."\">
-			<tr><td><br><b>Agregar Relaci�n con Artista</b></td></tr>
+			<tr><td><br><b>Agregar Relaci?n con Artista</b></td></tr>
 			<tr>
 				<td>
 					<table class=\"textobco10\" cellspacing=\"5\" width=\"50%\">
@@ -676,14 +677,14 @@ function enviar_mail($id_usuario,$tabla,$id_grupo)
 	$grupo = $db->sql_fetchrow($qid);
 
 	$mensaje = "
-Buen D�a.
+Buen D?a.
 
 Se ha creado una cuenta para que administre el artista ".$grupo["nombre"].".
 
 Usted puede entrar al portal de redlat (".$CFG->dirwww."/admin/login.php) con los siguientes datos de ingreso:
 
 Usuario : ".$usuario["login"]."
-Contrase�a : ".$usuario["resolv"]."
+Contrase?a : ".$usuario["resolv"]."
 
 Si tiene alguna duda, no dude en escribirnos : ".$CFG->mail_envio."\n
 

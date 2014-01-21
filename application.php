@@ -29,16 +29,16 @@ preg_match("/" . preg_quote($_SERVER["DOCUMENT_ROOT"],"/") . "(.*)/",$CFG->dirro
 
 $CFG->wwwroot       		= @$matches[1];
 $CFG->common_libdir 		= $CFG->dirroot."/lib";
-$CFG->templatedir 			= "$CFG->dirroot/admin/templates";
+$CFG->templatedir 			= "$CFG->dirroot/templates";
 $CFG->admin_dir				=	$CFG->wwwroot."/admin";
 $CFG->templatePublicdir		=	$CFG->dirroot."/templates";
 $CFG->filesdir    			= "files";
 $CFG->tmpdir      			= "$CFG->dirroot/tmp";
 $CFG->libdir      			= "$CFG->dirroot/lib";
-$CFG->imagedir      		= "$CFG->wwwroot/admin/images";
+$CFG->imagedir      		= "$CFG->wwwroot/images";
 $CFG->logosdir    			= "$CFG->dirroot/images";
-$CFG->modulesdir    		= "$CFG->dirroot/admin/modules";
-$CFG->wwwmodulesdir 		= "$CFG->wwwroot/admin/modules";
+$CFG->modulesdir    		= "$CFG->dirroot/modules";
+$CFG->wwwmodulesdir 		= "$CFG->wwwroot/modules";
 $CFG->icondir       		= "$CFG->wwwroot/iconos/transparente";
 $CFG->javadir				= "$CFG->dirroot/java";
 $CFG->jsdir					= "$CFG->dirroot/js";
@@ -48,8 +48,8 @@ $CFG->sesion        		= "redlat";
 $CFG->sesion_admin  		= "redlatadmin";
 $CFG->resultados    		= 10;
 $CFG->nombreSitio   		= "CirculArt";
-$CFG->nombreSitioCompleto 	= "CirculArt, Plataforma de exportaci�n de las artes colombianas";
-$CFG->siteTitle     		= $CFG->nombreSitio." .:: Administraci�n";
+$CFG->nombreSitioCompleto 	= "CirculArt, Plataforma de exportaci?n de las artes colombianas";
+$CFG->siteTitle     		= $CFG->nombreSitio." .:: Administraci?n";
 $CFG->siteLogo      		= $CFG->imagedir."/logo.gif";
 $CFG->languages     		= array("es","en");
 $CFG->defaultLang   		= $CFG->languages[0];
@@ -67,7 +67,7 @@ echo '<pre>';print_r($CFG);echo '</pre>';
 
 if(isset($_GET["lang"])){
 	$CFG->lang=$_GET["lang"];
-	setcookie("lang", $_GET["lang"],time()+60*60*24*30);	//30 d�as
+	setcookie("lang", $_GET["lang"],time()+60*60*24*30);	//30 d?as
 }
 elseif(isset($_COOKIE["lang"])){
 	$CFG->lang=$_COOKIE["lang"];
@@ -77,7 +77,7 @@ if($CFG->lang=="es") $CFG->lang="";
 
 if(isset($_GET["mercado"])){
 	$CFG->mercado=$_GET["mercado"];
-	setcookie("mercado", $_GET["mercado"],time()+60*60*24*30);	//30 d�as
+	setcookie("mercado", $_GET["mercado"],time()+60*60*24*30);	//30 d?as
 }else{ $CFG->mercado=0;
 
 }
@@ -90,7 +90,7 @@ if(isset($_GET["mercado"])){
 }*/
 
 
-/* define el comportamiento de los errores de la base de datos, como es en periodo de dise�o,
+/* define el comportamiento de los errores de la base de datos, como es en periodo de dise?o,
  * se prenden todos los debugging  */
 $DB_DEBUG = true;
 $DB_DIE_ON_FAIL = true;
@@ -98,8 +98,8 @@ $DB_DIE_ON_FAIL = true;
 //Base de datos mysql
 $CFG->dbhost = "localhost";
 $CFG->dbname = "cir48lar_redlat";
-$CFG->dbuser = "cir48lar_redlat";
-$CFG->dbpass = "redlat4321";
+$CFG->dbuser = "root";
+$CFG->dbpass = "root";
 
 require($CFG->common_libdir . "/stdlib.php");
 require("$CFG->libdir/validate.php");
@@ -118,7 +118,7 @@ $CFG->defaultModule="usuarios";
 
 setlocale (LC_CTYPE, "es_ES");
 
-/* inicializa el manejo de sesiones, s�lo se usar� un arreglo llamado SESSION para almacenar las variables.   */
+/* inicializa el manejo de sesiones, s?lo se usar? un arreglo llamado SESSION para almacenar las variables.   */
 
 if(!isset($_SERVER["REQUEST_METHOD"])) $CFG->cli=1;
 else $CFG->cli=0;

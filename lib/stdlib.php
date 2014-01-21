@@ -1,4 +1,4 @@
-<?
+<?php
 /* stdlib.php */
 
 function nvl(&$var, $default="") {
